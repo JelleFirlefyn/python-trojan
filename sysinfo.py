@@ -52,16 +52,16 @@ class sysinfo():
         
         return info
     
-    def writeFile(self):
+    def write(self):
         #Create file and write system info to this file
         with open("sysinfo.txt", 'w') as f:
             f.write(self.getInfo())
 
-    def removeFile(self):
+    def remove(self):
         removefile("sysinfo.txt")
 
 
-    def sendFile(self):
+    def send(self):
         #Send this file to the remote FTP server
         send_file('sysinfo.txt')
 

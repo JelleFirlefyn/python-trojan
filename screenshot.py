@@ -1,7 +1,6 @@
 from send_file import send_file
 from removefile import removefile
 import pyautogui
-import os
 
 class screenshot():
     def __init__(self):
