@@ -4,10 +4,14 @@ import requests
 from typing import Dict
 from screenshot import screenshot
 from sysinfo import sysinfo
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 #Vars
-REPO = 'JelleFirlefyn/remote-control'
-CONFIG_FILE = "config.json"
+REPO = os.getenv("repo")
+CONFIG_FILE = os.getenv("config-file")
 
 #Test functions:
 class t():
