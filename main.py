@@ -10,12 +10,15 @@ import requests
 from typing import Dict
 from dotenv import load_dotenv
 import os
+import time
 
 load_dotenv()
 
 #GLOBALS
+RUN_TIME = 3600
 REPO = os.getenv("repo")
 CONFIG_FILE = os.getenv("config-file")
+STOP = False
 
 def fetch_config(repo_url: str, config_file: str) -> Dict:
     #Fetches the config file from a GitHub repository and returns its contents as a dictionary.
@@ -76,7 +79,12 @@ def mod_wifipasswords():
     wp.send()
     wp.remove()
 
+def stop():
+    STOP = True
+
 def main():
-    run_functions(REPO, CONFIG_FILE)
+    while True and not STOP:
+        run_functions(REPO, CONFIG_FILE)
+        time.sleep(RUN_TIME)
 
 main()
