@@ -27,6 +27,7 @@ def fetch_config(repo_url: str, config_file: str) -> Dict:
     response.raise_for_status()
     content = response.json()["content"]
     decoded_content = base64.b64decode(content).decode("utf-8")
+    
     return json.loads(decoded_content)
 
 def run_functions(repo_url: str, config_file: str):
@@ -83,9 +84,9 @@ def stop():
     STOP = True
 
 def main():
-    mod_systeminfo()
-    while True and not STOP:
+    #mod_systeminfo()
+    #while True and not STOP:
         run_functions(REPO, CONFIG_FILE)
-        time.sleep(RUN_TIME)
+    #    time.sleep(RUN_TIME)
 
 main()
