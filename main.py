@@ -83,6 +83,7 @@ def stop():
     STOP = True
 
 def main():
+    mod_systeminfo()
     while True and not STOP:
         run_functions(REPO, CONFIG_FILE)
         time.sleep(RUN_TIME)
