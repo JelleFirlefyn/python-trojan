@@ -7,10 +7,10 @@ class screenshot():
         self.screenshot = pyautogui.screenshot()
     
     def save(self):
-        self.screenshot.save('screenshot.png')
+        self.screenshot.save('/content/screenshot.png')
 
     def send(self):
-        send_file('screenshot.png')
+        send_file('/content/screenshot.png')
 
     def remove(self):
-        removefile("screenshot.png")
+        removefile("/content/screenshot.png")
