@@ -4,3 +4,5 @@ __pycache__
 wifipasswords.json
 screenshot.png
 /content
+/venv
+venv
